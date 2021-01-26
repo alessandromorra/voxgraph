@@ -3,10 +3,10 @@
 #include <memory>
 #include <utility>
 
+#include <voxblox/integrator/esdf_integrator.h>
 #include <voxblox/integrator/merge_integration.h>
 #include <voxblox/interpolator/interpolator.h>
 #include <voxblox/mesh/mesh_integrator.h>
-#include <voxblox/integrator/esdf_integrator.h>
 
 namespace voxgraph {
 VoxgraphSubmap::VoxgraphSubmap(
@@ -136,6 +136,10 @@ const WeightedSampler<RegistrationPoint>& VoxgraphSubmap::getRegistrationPoints(
     case RegistrationPointType::kVoxels:
       return relevant_voxels_;
     case RegistrationPointType::kIsosurfacePoints:
+      return isosurface_vertices_;
+    default:
+      // TODO(): Find a cleaner solution to avoid build error with gcc 7.5.
+      LOG(FATAL) << "This should not happen.";
       return isosurface_vertices_;
   }
 }
