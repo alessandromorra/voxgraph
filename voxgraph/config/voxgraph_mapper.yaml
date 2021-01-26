@@ -5,8 +5,8 @@ auto_pause_rosbag: false
 submap_creation_interval: 10
 subscriber_queue_length: 10
 
-input_odom_frame: "odom"
-input_base_link_frame: "imu"
+input_odom_frame: "ascento/odom_frame"
+input_base_link_frame: "ascento/base_frame"
 output_mission_frame: "mission"
 output_odom_frame: "odom"
 output_base_link_frame: "imu"
