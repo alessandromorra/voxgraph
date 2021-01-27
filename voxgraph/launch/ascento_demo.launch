@@ -1,0 +1,16 @@
+<launch>
+  <arg name="pointcloud_topic" default="/ascento/realsense_d435i_front/depth/color/points" />
+  <arg name="debug_mode" default="false" />
+  <arg name="show_rviz" default="true" />
+  <arg name="use_bag" default="false" />
+  <!-- <arg name="path_to_bag" default="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/ascento_navigation_2021_01_21_19_12_29/ascento_navigation.bag" /> -->
+  <arg name="path_to_bag" default="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/ascento_navigation_2021_01_21_20_18_39/ascento_navigation.bag" />
+
+  <include file="$(find voxgraph)/launch/voxgraph_mapper.launch" pass_all_args="true" />
+
+  <group if="$(arg use_bag)">
+    <include file="/etc/arc/parameters/logging_tools/rosbag_player.launch">
+      <arg name="path_to_bag" value="$(arg path_to_bag)" />
+    </include>
+  </group>
+</launch>
