@@ -6,7 +6,7 @@ submap_creation_interval: 10
 subscriber_queue_length: 10
 
 input_odom_frame: "world"
-input_base_link_frame: "ascento/base_frame"
+input_base_link_frame: "ascento/realsense_d435i_front_link"
 output_mission_frame: "mission"
 output_odom_frame: "odom"
 output_base_link_frame: "imu"

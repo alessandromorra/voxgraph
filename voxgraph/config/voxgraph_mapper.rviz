@@ -1,6 +1,6 @@
 Panels:
   - Class: rviz/Displays
-    Help Height: 78
+    Help Height: 138
     Name: Displays
     Property Tree Widget:
       Expanded:
@@ -9,7 +9,7 @@ Panels:
         - /Voxgraph1
         - /Voxgraph1/Meshes1
       Splitter Ratio: 0.6882352828979492
-    Tree Height: 1088
+    Tree Height: 879
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -59,7 +59,39 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
-        camera0:
+        ascento/global_map_frame:
+          Value: true
+        ascento/realsense_d435i_front_accel_frame:
+          Value: true
+        ascento/realsense_d435i_front_accel_optical_frame:
+          Value: true
+        ascento/realsense_d435i_front_color_frame:
+          Value: true
+        ascento/realsense_d435i_front_color_optical_frame:
+          Value: true
+        ascento/realsense_d435i_front_depth_frame:
+          Value: true
+        ascento/realsense_d435i_front_depth_optical_frame:
+          Value: true
+        ascento/realsense_d435i_front_gyro_frame:
+          Value: true
+        ascento/realsense_d435i_front_gyro_optical_frame:
+          Value: true
+        ascento/realsense_d435i_front_infra1_frame:
+          Value: true
+        ascento/realsense_d435i_front_infra1_optical_frame:
+          Value: true
+        ascento/realsense_d435i_front_infra2_frame:
+          Value: true
+        ascento/realsense_d435i_front_infra2_optical_frame:
+          Value: true
+        ascento/realsense_d435i_front_link:
+          Value: true
+        ascento/realsense_t265_link:
+          Value: true
+        ascento/slam_sensor_frame:
+          Value: true
+        ascento/world:
           Value: true
         imu:
           Value: true
@@ -67,15 +99,11 @@ Visualization Manager:
           Value: true
         odom:
           Value: true
-        os1_lidar:
-          Value: true
-        os1_sensor:
-          Value: true
-        penguin/current_reference:
-          Value: true
         sensor_voxgraph:
           Value: true
         voxgraph_active_submap:
+          Value: true
+        world:
           Value: true
       Marker Scale: 1
       Name: TF
@@ -87,15 +115,8 @@ Visualization Manager:
           voxgraph_active_submap:
             odom:
               imu:
-                camera0:
-                  {}
-                os1_sensor:
-                  os1_lidar:
-                    {}
                 sensor_voxgraph:
                   {}
-              penguin/current_reference:
-                {}
       Update Interval: 0
       Value: true
     - Class: rviz/Group
@@ -180,34 +201,34 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Class: rviz/Orbit
-      Distance: 83.7422866821289
+      Class: rviz/ThirdPersonFollower
+      Distance: 6.678647518157959
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 7.814975738525391
-        Y: 1.5188809633255005
-        Z: -4.198982238769531
-      Focal Shape Fixed Size: false
+        X: -0.06191658973693848
+        Y: -0.5883558988571167
+        Z: -1.001838207244873
+      Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
-      Near Clip Distance: 0.10000000149011612
-      Pitch: 0.4547974169254303
-      Target Frame: <Fixed Frame>
-      Value: Orbit (rviz)
-      Yaw: 5.588576793670654
+      Near Clip Distance: 0.009999999776482582
+      Pitch: 0.4097972810268402
+      Target Frame: sensor_voxgraph
+      Value: ThirdPersonFollower (rviz)
+      Yaw: 4.8085784912109375
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
   Height: 1385
   Hide Left Dock: false
-  Hide Right Dock: true
-  QMainWindow State: 000000ff00000000fd000000040000000000000156000004cbfc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003d000004cb000000c900fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f0000037efc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000003d0000037e000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000009bd0000003efc0100000002fb0000000800540069006d00650100000000000009bd000002eb00fffffffb0000000800540069006d0065010000000000000450000000000000000000000861000004cb00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Hide Right Dock: false
+  QMainWindow State: 000000ff00000000fd0000000400000000000001f700000467fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b000000b000fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000006e000004670000018200fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000015f00000467fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000006e000004670000013200fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000009bd0000005afc0100000002fb0000000800540069006d00650100000000000009bd0000057100fffffffb0000000800540069006d006501000000000000045000000000000000000000064f0000046700000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -215,7 +236,7 @@ Window Geometry:
   Tool Properties:
     collapsed: false
   Views:
-    collapsed: true
+    collapsed: false
   Width: 2493
-  X: 1987
-  Y: 43
+  X: 847
+  Y: 549
