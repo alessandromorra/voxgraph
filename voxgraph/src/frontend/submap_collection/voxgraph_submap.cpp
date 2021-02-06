@@ -136,6 +136,10 @@ const WeightedSampler<RegistrationPoint>& VoxgraphSubmap::getRegistrationPoints(
     case RegistrationPointType::kIsosurfacePoints:
     default:
       return isosurface_vertices_;
+    default:
+      // TODO(): Find a cleaner solution to avoid build error with gcc 7.5.
+      LOG(FATAL) << "This should not happen.";
+      return isosurface_vertices_;
   }
 }
 
