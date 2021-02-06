@@ -86,6 +86,8 @@ SubmapID VoxgraphSubmapCollection::createNewSubmap(
       "submap timeline due to missing time information. Please use the "
       "derived VoxgraphSubmapCollection::createNewSubmap methods instead.");
   cblox::SubmapCollection<VoxgraphSubmap>::createNewSubmap(T_O_S);
+  LOG(FATAL) << "This should not happen";
+  return SubmapID();
 }
 
 bool VoxgraphSubmapCollection::lookupActiveSubmapByTime(
