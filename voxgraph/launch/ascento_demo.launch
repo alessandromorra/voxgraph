@@ -1,0 +1,43 @@
+<launch>
+  <param name="use_sim_time" value="true" />
+  <arg name="pointcloud_topic" default="ascento/realsense_d435i_front/depth/color/points" />
+  <arg name="rosbag_skip_first_n_sec" default="5" />
+  <arg name="debug_mode" default="false" />
+  <arg name="show_rviz" default="true" />
+  <arg name="voxblox_config" default="voxblox_temporal_window_ascento.yaml" />
+  <arg name="voxgraph_config" default="voxgraph_mapper_ascento.yaml" />
+  <arg name="use_ascento" default="true" />
+
+  <include file="$(find voxgraph)/launch/voxgraph_mapper.launch" pass_all_args="true" />
+
+  <include file="/etc/arc/parameters/logging_tools/rosbag_player.launch">
+      <arg name="path_to_bag" value="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/ascento_navigation_2021_01_21_19_12_29/ascento_navigation.bag"/>
+      <!-- <arg name="rviz_config" value="/etc/arc/parameters/visualization/rviz/handheld_settings.rviz"/> -->
+      <arg name="use_ascento" value="$(arg use_ascento)"/>
+  </include>
+
+  <!--  Add transform such that a handheld tf is complete too.-->
+  <group unless="$(arg use_ascento)">
+    <node
+      pkg="tf2_ros"
+      type="static_transform_publisher"
+      name="world_odom_publisher"
+      args="0 0 0 0 0 0 1 odom world"/>
+  </group>
+
+  <!--  Add transform such that a ascento tf is complete too.-->
+  <group if="$(arg use_ascento)">
+    <node
+      pkg="tf2_ros"
+      type="static_transform_publisher"
+      name="base_body"
+      args="0 0 0 0 0 0 1 ascento/base_frame ascento/body"/>
+
+      <node
+        pkg="tf2_ros"
+        type="static_transform_publisher"
+        name="world_inital_pose"
+        args="0 0 0 0 0 0 1 world initial_pose"/>
+  </group>
+
+</launch>
