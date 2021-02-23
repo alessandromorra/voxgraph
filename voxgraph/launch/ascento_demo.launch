@@ -1,20 +1,49 @@
 <launch>
-  <param name="use_sim_time" value="true" />
   <arg name="pointcloud_topic" default="ascento/realsense_d435i_front/depth/color/points" />
-  <arg name="rosbag_skip_first_n_sec" default="5" />
+  <!-- <arg name="rosbag_skip_first_n_sec" default="5" /> -->
   <arg name="debug_mode" default="false" />
   <arg name="show_rviz" default="true" />
   <arg name="voxblox_config" default="voxblox_temporal_window_ascento.yaml" />
   <arg name="voxgraph_config" default="voxgraph_mapper_ascento.yaml" />
-  <arg name="use_ascento" default="true" />
+  <arg name="use_bag" default="true" />
+  <arg name="rosbag_path" default="/home/alessandromorra/logging/arc_handheld_2021_02_10_19_30_55/arc_handheld.bag" />
+  <arg name="use_ascento" default="false" />
+  <!-- use_ascento: true => spawn a bag with the ascento robot modle -->
+  <!-- use_ascento: false => spawn a bag with the handheld device -->
+
+  <param if="$(arg use_bag)" name="use_sim_time" value="true" />
+  <param unless="$(arg use_bag)" name="use_sim_time" value="false" />
 
   <include file="$(find voxgraph)/launch/voxgraph_mapper.launch" pass_all_args="true" />
 
-  <include file="/etc/arc/parameters/logging_tools/rosbag_player.launch">
-      <arg name="path_to_bag" value="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/ascento_navigation_2021_01_21_19_12_29/ascento_navigation.bag"/>
-      <!-- <arg name="rviz_config" value="/etc/arc/parameters/visualization/rviz/handheld_settings.rviz"/> -->
-      <arg name="use_ascento" value="$(arg use_ascento)"/>
+  <group if="$(arg use_ascento)">
+    <param
+      name="robot_description"
+      command="$(find xacro)/xacro
+      '$(find ascento_description)/urdf/ascento.xacro'
+      simulate:=false"/>
+  </group>
+
+  <group unless="$(arg use_ascento)">
+    <include file="/etc/arc/parameters/handheld/handheld_tf.launch">
+    </include>
+  </group>
+
+  <node
+    name="rviz_node"
+    pkg="rviz"
+    type="rviz"
+    args="-d /etc/arc/parameters/visualization/rviz/handheld_settings.rviz"
+    required="true"/>
+
+  <include unless="$(arg use_bag)" file="/etc/arc/parameters/handheld/handheld_sensors.launch">
+    <!-- <arg name="use_odometry_integrator" value="true"/> -->
   </include>
+
+  <include file="$(find arc_mapping)/launch/tracking_observer_node.launch">
+    <!-- <arg name="use_odometry_integrator" value="true"/> -->
+  </include>
+
 
   <!--  Add transform such that a handheld tf is complete too.-->
   <group unless="$(arg use_ascento)">

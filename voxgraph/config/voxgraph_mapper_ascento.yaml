@@ -7,10 +7,11 @@ loop_closure_topic_queue_length: 1000
 submap_topic_queue_length: 10
 publisher_queue_length: 10
 
-input_odom_frame: "world"
+input_odom_frame: "ascento/handheld_odom_frame"
+# input_odom_frame: "world"
 input_base_link_frame: "ascento/realsense_d435i_front_link"
-output_odom_frame: "odom"
-output_base_link_frame: "imu"
+output_odom_frame: "ascento/handheld_odom_frame"
+output_base_link_frame: "ascento/realsense_d435i_front_link_voxgraph"
 output_sensor_frame: "sensor_voxgraph"
 
 # T_base_sensor:
@@ -19,12 +20,12 @@ output_sensor_frame: "sensor_voxgraph"
 # - [ 0.1336122,  0.0053288, 0.9910194, -0.131]
 # - [ 0.0,        0.0,       0.0,        1.0]
 
-loop_closure_topic: "ascento/to"
+loop_closure_topic: "voxgraph_constraints"
 
-tsdf_voxel_size: 0.05
+tsdf_voxel_size: 0.10
 tsdf_integrator:
   truncation_distance: 0.80
-  max_ray_length_m: 5.0
+  max_ray_length_m: 3.0
   min_ray_length_m: 0.3
   use_const_weight: true
   use_weight_dropoff: true
@@ -34,7 +35,7 @@ tsdf_integrator:
 
 measurements:
   submap_registration:
-    enabled: false
+    enabled: true
     sampling_ratio: 0.05
     registration_method: "explicit_to_implicit"
     information_matrix:
@@ -43,7 +44,7 @@ measurements:
       z_z:     1.0
       yaw_yaw: 1.0
   odometry:   # Add an odometry constraint from the previous to the new submap.
-    enabled: false
+    enabled: true
     information_matrix:
       x_x:     1000.0
       y_y:     1000.0
