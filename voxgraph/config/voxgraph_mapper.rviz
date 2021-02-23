@@ -7,10 +7,13 @@ Panels:
         - /Global Options1
         - /TF1/Frames1
         - /TF1/Tree1
-        - /Voxgraph1
+        - /Voxgraph1/Path1
         - /Voxgraph1/Meshes1
+        - /Voxblox1/Mesh1
+        - /Odometry1
+        - /Odometry1/Shape1
       Splitter Ratio: 0.6852940917015076
-    Tree Height: 1543
+    Tree Height: 1598
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -29,7 +32,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: PointCloud2
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -60,103 +63,41 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
-        ascento/base_frame:
-          Value: false
-        ascento/body:
-          Value: false
-        ascento/control_frame:
-          Value: false
-        ascento/femur_left:
-          Value: false
-        ascento/femur_right:
-          Value: false
-        ascento/fibula_left:
-          Value: false
-        ascento/fibula_right:
-          Value: false
         ascento/global_map_frame:
           Value: false
-        ascento/local_map_frame:
-          Value: false
-        ascento/odom_frame:
-          Value: false
-        ascento/realsense_d435i_bottom_bottom_screw_frame:
-          Value: false
-        ascento/realsense_d435i_bottom_color_frame:
-          Value: false
-        ascento/realsense_d435i_bottom_color_optical_frame:
-          Value: false
-        ascento/realsense_d435i_bottom_depth_frame:
-          Value: false
-        ascento/realsense_d435i_bottom_depth_optical_frame:
-          Value: false
-        ascento/realsense_d435i_bottom_infra1_frame:
-          Value: false
-        ascento/realsense_d435i_bottom_infra1_optical_frame:
-          Value: false
-        ascento/realsense_d435i_bottom_infra2_frame:
-          Value: false
-        ascento/realsense_d435i_bottom_infra2_optical_frame:
-          Value: false
-        ascento/realsense_d435i_bottom_link:
-          Value: false
-        ascento/realsense_d435i_front_bottom_screw_frame:
-          Value: false
+        ascento/handheld_odom_frame:
+          Value: true
+        ascento/realsense_d435i_front_accel_frame:
+          Value: true
+        ascento/realsense_d435i_front_accel_optical_frame:
+          Value: true
         ascento/realsense_d435i_front_color_frame:
-          Value: false
+          Value: true
         ascento/realsense_d435i_front_color_optical_frame:
-          Value: false
+          Value: true
         ascento/realsense_d435i_front_depth_frame:
-          Value: false
+          Value: true
         ascento/realsense_d435i_front_depth_optical_frame:
-          Value: false
+          Value: true
+        ascento/realsense_d435i_front_gyro_frame:
+          Value: true
+        ascento/realsense_d435i_front_imu_optical_frame:
+          Value: true
         ascento/realsense_d435i_front_infra1_frame:
-          Value: false
+          Value: true
         ascento/realsense_d435i_front_infra1_optical_frame:
-          Value: false
+          Value: true
         ascento/realsense_d435i_front_infra2_frame:
-          Value: false
+          Value: true
         ascento/realsense_d435i_front_infra2_optical_frame:
-          Value: false
+          Value: true
         ascento/realsense_d435i_front_link:
-          Value: false
-        ascento/realsense_t265_accel_frame:
-          Value: false
-        ascento/realsense_t265_accel_optical_frame:
-          Value: false
-        ascento/realsense_t265_fisheye1_frame:
-          Value: false
-        ascento/realsense_t265_fisheye1_optical_frame:
-          Value: false
-        ascento/realsense_t265_fisheye2_frame:
-          Value: false
-        ascento/realsense_t265_fisheye2_optical_frame:
-          Value: false
-        ascento/realsense_t265_gyro_frame:
-          Value: false
-        ascento/realsense_t265_gyro_optical_frame:
           Value: false
         ascento/realsense_t265_link:
           Value: false
-        ascento/realsense_t265_odom_frame:
-          Value: false
         ascento/slam_sensor_frame:
           Value: true
-        ascento/tibia_left:
-          Value: false
-        ascento/tibia_right:
-          Value: false
-        ascento/vectornav_vn100_link:
-          Value: true
-        ascento/wheel_left:
-          Value: false
-        ascento/wheel_right:
-          Value: false
         ascento/world:
-          Value: false
-        ds4:
-          Value: false
-        ds4_imu:
           Value: false
         initial_pose:
           Value: true
@@ -166,7 +107,27 @@ Visualization Manager:
           Value: true
         submap_1:
           Value: true
+        submap_10:
+          Value: true
+        submap_11:
+          Value: true
+        submap_12:
+          Value: true
         submap_2:
+          Value: true
+        submap_3:
+          Value: true
+        submap_4:
+          Value: true
+        submap_5:
+          Value: true
+        submap_6:
+          Value: true
+        submap_7:
+          Value: true
+        submap_8:
+          Value: true
+        submap_9:
           Value: true
         world:
           Value: true
@@ -176,76 +137,60 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        world:
-          ascento/global_map_frame:
-            ascento/slam_sensor_frame:
-              ascento/odom_frame:
-                ascento/control_frame:
-                  ascento/base_frame:
-                    ascento/body:
-                      ascento/realsense_d435i_bottom_bottom_screw_frame:
-                        ascento/realsense_d435i_bottom_link:
-                          ascento/realsense_d435i_bottom_color_frame:
-                            ascento/realsense_d435i_bottom_color_optical_frame:
-                              {}
-                          ascento/realsense_d435i_bottom_depth_frame:
-                            ascento/realsense_d435i_bottom_depth_optical_frame:
-                              {}
-                          ascento/realsense_d435i_bottom_infra1_frame:
-                            ascento/realsense_d435i_bottom_infra1_optical_frame:
-                              {}
-                          ascento/realsense_d435i_bottom_infra2_frame:
-                            ascento/realsense_d435i_bottom_infra2_optical_frame:
-                              {}
-                      ascento/realsense_d435i_front_bottom_screw_frame:
-                        ascento/realsense_d435i_front_link:
-                          ascento/realsense_d435i_front_color_frame:
-                            ascento/realsense_d435i_front_color_optical_frame:
-                              {}
-                          ascento/realsense_d435i_front_depth_frame:
-                            ascento/realsense_d435i_front_depth_optical_frame:
-                              {}
-                          ascento/realsense_d435i_front_infra1_frame:
-                            ascento/realsense_d435i_front_infra1_optical_frame:
-                              {}
-                          ascento/realsense_d435i_front_infra2_frame:
-                            ascento/realsense_d435i_front_infra2_optical_frame:
-                              {}
-                      ascento/tibia_left:
-                        ascento/femur_left:
-                          ascento/fibula_left:
-                            {}
-                          ascento/wheel_left:
-                            {}
-                      ascento/tibia_right:
-                        ascento/femur_right:
-                          ascento/fibula_right:
-                            {}
-                          ascento/wheel_right:
-                            {}
-                      ascento/vectornav_vn100_link:
-                        {}
-                    ascento/realsense_t265_link:
-                      ascento/realsense_t265_accel_frame:
-                        ascento/realsense_t265_accel_optical_frame:
+        odom:
+          world:
+            ascento/world:
+              ascento/global_map_frame:
+                ascento/slam_sensor_frame:
+                  ascento/handheld_odom_frame:
+                    initial_pose:
+                      {}
+                    submap_0:
+                      {}
+                    submap_1:
+                      {}
+                    submap_10:
+                      {}
+                    submap_11:
+                      {}
+                    submap_12:
+                      {}
+                    submap_2:
+                      {}
+                    submap_3:
+                      {}
+                    submap_4:
+                      {}
+                    submap_5:
+                      {}
+                    submap_6:
+                      {}
+                    submap_7:
+                      {}
+                    submap_8:
+                      {}
+                    submap_9:
+                      {}
+                  ascento/realsense_t265_link:
+                    ascento/realsense_d435i_front_link:
+                      ascento/realsense_d435i_front_accel_frame:
+                        ascento/realsense_d435i_front_accel_optical_frame:
                           {}
-                      ascento/realsense_t265_fisheye1_frame:
-                        ascento/realsense_t265_fisheye1_optical_frame:
+                      ascento/realsense_d435i_front_color_frame:
+                        ascento/realsense_d435i_front_color_optical_frame:
                           {}
-                      ascento/realsense_t265_fisheye2_frame:
-                        ascento/realsense_t265_fisheye2_optical_frame:
+                      ascento/realsense_d435i_front_depth_frame:
+                        ascento/realsense_d435i_front_depth_optical_frame:
                           {}
-                      ascento/realsense_t265_gyro_frame:
-                        ascento/realsense_t265_gyro_optical_frame:
+                      ascento/realsense_d435i_front_gyro_frame:
+                        ascento/realsense_d435i_front_imu_optical_frame:
                           {}
-                      ascento/realsense_t265_odom_frame:
-                        {}
-                  ascento/local_map_frame:
-                    {}
-          ascento/world:
-            {}
-          initial_pose:
-            {}
+                      ascento/realsense_d435i_front_infra1_frame:
+                        ascento/realsense_d435i_front_infra1_optical_frame:
+                          {}
+                      ascento/realsense_d435i_front_infra2_frame:
+                        ascento/realsense_d435i_front_infra2_optical_frame:
+                          {}
       Update Interval: 0
       Value: true
     - Class: rviz/Group
@@ -267,20 +212,20 @@ Visualization Manager:
             Z: 0
           Pose Color: 255; 85; 255
           Pose Style: Axes
-          Radius: 0.009999999776482582
+          Radius: 0.10000000149011612
           Shaft Diameter: 0.10000000149011612
           Shaft Length: 0.10000000149011612
           Topic: /voxgraph_mapper/pose_history
           Unreliable: false
           Value: true
         - Class: rviz/Marker
-          Enabled: false
+          Enabled: true
           Marker Topic: /voxgraph_mapper/pose_graph
           Name: Pose graph
           Namespaces:
-            {}
+            optimized: true
           Queue Size: 100
-          Value: false
+          Value: true
         - Class: rviz/Group
           Displays:
             - Class: voxblox_rviz_plugin/VoxbloxMesh
@@ -310,201 +255,80 @@ Visualization Manager:
           Unreliable: false
           Value: true
           Visible: true
-      Enabled: true
+      Enabled: false
       Name: Voxblox
     - Class: rviz/Marker
       Enabled: true
       Marker Topic: /ascento/realsense_t265/odom/path
       Name: PathSlamSensor
       Namespaces:
-        {}
+        tracking_observer_ros: true
       Queue Size: 100
       Value: true
     - Alpha: 1
-      Class: rviz/RobotModel
-      Collision Enabled: false
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: RGB8
+      Decay Time: 0
       Enabled: true
-      Links:
-        All Links Enabled: true
-        Expand Joint Details: false
-        Expand Link Details: false
-        Expand Tree: false
-        Link Tree Style: Links in Alphabetic Order
-        base_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        body:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        femur_left:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        femur_right:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        fibula_left:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        fibula_right:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        realsense_d435i_bottom_bottom_screw_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435i_bottom_color_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435i_bottom_color_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435i_bottom_depth_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435i_bottom_depth_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435i_bottom_infra1_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435i_bottom_infra1_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435i_bottom_infra2_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435i_bottom_infra2_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435i_bottom_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        realsense_d435i_front_bottom_screw_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435i_front_color_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435i_front_color_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435i_front_depth_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435i_front_depth_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435i_front_infra1_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435i_front_infra1_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435i_front_infra2_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435i_front_infra2_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_d435i_front_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        realsense_t265_accel_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_t265_fisheye1_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_t265_fisheye2_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_t265_gyro_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_t265_imu_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        realsense_t265_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        realsense_t265_odom_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        tibia_left:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        tibia_right:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        vectornav_vn100_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wheel_left:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wheel_right:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        world:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-      Name: RobotModel
-      Robot Description: robot_description
-      TF Prefix: ""
-      Update Interval: 0
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 4096
+      Min Color: 0; 0; 0
+      Min Intensity: 0
+      Name: PointCloud2
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.009999999776482582
+      Style: Flat Squares
+      Topic: /ascento/realsense_d435i_front/depth/color/points
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
       Value: true
-      Visual Enabled: true
+    - Angle Tolerance: 0.10000000149011612
+      Class: rviz/Odometry
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.30000001192092896
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: false
+      Enabled: false
+      Keep: 1000
+      Name: Odometry
+      Position Tolerance: 0.10000000149011612
+      Shape:
+        Alpha: 0.30000001192092896
+        Axes Length: 1
+        Axes Radius: 0.10000000149011612
+        Color: 255; 25; 0
+        Head Length: 0.30000001192092896
+        Head Radius: 0.10000000149011612
+        Shaft Length: 1
+        Shaft Radius: 0.05000000074505806
+        Value: Arrow
+      Topic: /ascento/realsense_t265/odom/local
+      Unreliable: false
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 255; 255; 255
@@ -533,33 +357,33 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 26.54998779296875
+      Distance: 14.423686027526855
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.1619948446750641
-        Y: 9.436734199523926
-        Z: 3.2680468559265137
+        X: 4.430683135986328
+        Y: 1.5054316520690918
+        Z: -2.2138795852661133
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.10000000149011612
-      Pitch: 0.6403985023498535
+      Pitch: 0.46979671716690063
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.3854005336761475
+      Yaw: 5.9522175788879395
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 2049
+  Height: 2104
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd0000000400000000000001f7000006fffc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b000000b000fffffffb0000001e0054006f006f006c002000500072006f00700065007200740069006500730200000f00000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000006e000006ff0000018200fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000015f000006fffc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000006e000006ff0000013200fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e1000001970000000300000e7a0000005afc0100000002fb0000000800540069006d0065010000000000000e7a0000057100fffffffb0000000800540069006d0065010000000000000450000000000000000000000b0c000006ff00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000400000000000001f700000736fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b000000b000fffffffb0000001e0054006f006f006c002000500072006f00700065007200740069006500730200000f00000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000006e000007360000018200fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000015f00000736fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000006e000007360000013200fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e1000001970000000300000f000000005afc0100000002fb0000000800540069006d0065010000000000000f000000057100fffffffb0000000800540069006d0065010000000000000450000000000000000000000b920000073600000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -568,6 +392,6 @@ Window Geometry:
     collapsed: false
   Views:
     collapsed: false
-  Width: 3706
-  X: 3974
-  Y: 55
+  Width: 3840
+  X: 0
+  Y: 822
