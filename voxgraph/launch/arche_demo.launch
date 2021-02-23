@@ -1,12 +1,14 @@
 <launch>
   <param name="use_sim_time" value="true" />
 
-  <arg name="rosbag_path" default="/home/victor/data/arche_week/arche_day_2/flight1_2ms.bag" />
+  <arg name="rosbag_path" default="/home/alessandromorra/Downloads/arche_flight1_2ms_indoor-outdoor-figure-8.bag" />
 
   <arg name="pointcloud_topic" default="lidar_undistortion/pointcloud_corrected" />
   <arg name="rosbag_skip_first_n_sec" default="5" />
   <arg name="debug_mode" default="false" />
   <arg name="show_rviz" default="true" />
+  <arg name="voxblox_config" default="voxblox_temporal_window.yaml" />
+  <arg name="voxgraph_config" default="voxgraph_mapper.yaml" />
 
   <node pkg="tf" type="static_transform_publisher" name="os1_coordinate_transform" args="0 0 0 0 0 1 0 os1_sensor os1_lidar 100" />
 

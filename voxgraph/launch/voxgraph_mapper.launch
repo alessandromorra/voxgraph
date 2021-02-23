@@ -2,6 +2,10 @@
   <!-- User supplied arguments -->
   <arg name="pointcloud_topic"
        doc="ROS topic for pointcloud input"/>
+  <arg name="voxblox_config"
+       default="voxblox_temporal_window.yaml"/>
+  <arg name="voxgraph_config"
+       default="voxgraph_mapper.yaml"/>
   <arg name="rosbag_path"
        default=""
        doc="Replay the rosbag at the specified path. Can be left blank." />
@@ -25,7 +29,7 @@
     <node name="voxblox" pkg="voxblox_ros" type="tsdf_server"
           output="screen" args="-alsologtostderr" clear_params="true">
       <remap from="pointcloud" to="$(arg pointcloud_topic)"/>
-      <rosparam file="$(find voxgraph)/config/voxblox_temporal_window.yaml"/>
+      <rosparam file="$(find voxgraph)/config/$(arg voxblox_config)"/>
     </node>
   </group>
 
@@ -36,7 +40,7 @@
 
     <node name="voxgraph_mapper" pkg="voxgraph" type="voxgraph_mapping_node"
           output="screen" launch-prefix="$(arg launch_prefix)">
-      <rosparam file="$(find voxgraph)/config/voxgraph_mapper.yaml" />
+      <rosparam file="$(find voxgraph)/config/$(arg voxgraph_config)" />
       <param name="submap_topic" value="/voxblox/tsdf_map_out" />
     </node>
   </group>
