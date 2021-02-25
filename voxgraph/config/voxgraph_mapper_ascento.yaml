@@ -20,7 +20,6 @@ output_sensor_frame: "sensor_voxgraph"
 # - [ 0.1336122,  0.0053288, 0.9910194, -0.131]
 # - [ 0.0,        0.0,       0.0,        1.0]
 
-loop_closure_topic: "voxgraph_constraints"
 
 tsdf_voxel_size: 0.10
 tsdf_integrator:
@@ -32,6 +31,8 @@ tsdf_integrator:
   use_sparsity_compensation_factor: true
   sparsity_compensation_factor: 20.0
   # integration_order_mode: "sorted"
+
+loop_closure_topic: "voxgraph_constraints"
 
 measurements:
   submap_registration:
@@ -53,6 +54,13 @@ measurements:
   height: # This assumes that the height estimate from the odometry source is really good (e.g. when it fuses an altimeter)
     enabled: false
     information_zz: 2500.0
+  loop_closure:
+    enabled: true
+    information_matrix:
+      x_x: 2.0
+      y_y: 2.0
+      z_z: 2.0
+      yaw_yaw: 500.0
 
 mesh_min_weight: 2.0
 submap_mesh_color_mode: "lambert_color"
