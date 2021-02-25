@@ -46,6 +46,7 @@ VoxgraphMapper::VoxgraphMapper(const ros::NodeHandle& nh,
       submap_topic_queue_length_(10),
       registration_constraints_enabled_(false),
       odometry_constraints_enabled_(false),
+      loop_closure_constraints_enabled_(false),
       height_constraints_enabled_(false),
       pause_optimization_(false),
       submap_config_(submap_config),
@@ -122,6 +123,13 @@ void VoxgraphMapper::getParametersFromRos() {
       verbose_,
       "Odometry constraints: " << (odometry_constraints_enabled_ ? "enabled"
                                                                  : "disabled"));
+  nh_measurement_params.param("loop_closure/enabled",
+                              loop_closure_constraints_enabled_,
+                              loop_closure_constraints_enabled_);
+  ROS_INFO_STREAM_COND(
+      verbose_,
+      "Loop closure constraints: "
+          << (loop_closure_constraints_enabled_ ? "enabled" : "disabled"));
   nh_measurement_params.param("height/enabled", height_constraints_enabled_,
                               height_constraints_enabled_);
   ROS_INFO_STREAM_COND(
@@ -185,75 +193,80 @@ void VoxgraphMapper::advertiseServices() {
 
 void VoxgraphMapper::loopClosureCallback(
     const voxgraph_msgs::LoopClosure& loop_closure_msg) {
-  // TODO(victorr): Introduce flag to switch between default or msg info. matrix
-  // TODO(victorr): Move the code below to a measurement processor
-  // Setup warning msg prefix
-  const ros::Time& timestamp_A = loop_closure_msg.from_timestamp;
-  const ros::Time& timestamp_B = loop_closure_msg.to_timestamp;
-  std::ostringstream warning_msg_prefix;
-  warning_msg_prefix << "Could not add loop closure from timestamp "
-                     << timestamp_A << " to " << timestamp_B;
+  if (loop_closure_constraints_enabled_) {
+    /* code */
+    // TODO(victorr): Introduce flag to switch between default or msg info.
+    // matrix
+    // TODO(victorr): Move the code below to a measurement processor
+    // Setup warning msg prefix
+    const ros::Time& timestamp_A = loop_closure_msg.from_timestamp;
+    const ros::Time& timestamp_B = loop_closure_msg.to_timestamp;
+    std::ostringstream warning_msg_prefix;
+    warning_msg_prefix << "Could not add loop closure from timestamp "
+                       << timestamp_A << " to " << timestamp_B;
 
-  // Find the submaps that were active at both timestamps
-  SubmapID submap_id_A, submap_id_B;
-  bool success_A = submap_collection_ptr_->lookupActiveSubmapByTime(
-      loop_closure_msg.from_timestamp, &submap_id_A);
-  bool success_B = submap_collection_ptr_->lookupActiveSubmapByTime(
-      loop_closure_msg.to_timestamp, &submap_id_B);
-  if (!success_A || !success_B) {
-    ROS_WARN_STREAM(warning_msg_prefix.str() << ": timestamp A or B has no "
-                                                "corresponding submap");
-    return;
-  }
-  if (submap_id_A == submap_id_B) {
-    ROS_WARN_STREAM(warning_msg_prefix.str() << ": timestamp A and B fall "
-                                                "within the same submap");
-    return;
-  }
-  const VoxgraphSubmap& submap_A =
-      submap_collection_ptr_->getSubmap(submap_id_A);
-  const VoxgraphSubmap& submap_B =
-      submap_collection_ptr_->getSubmap(submap_id_B);
+    // Find the submaps that were active at both timestamps
+    SubmapID submap_id_A, submap_id_B;
+    bool success_A = submap_collection_ptr_->lookupActiveSubmapByTime(
+        loop_closure_msg.from_timestamp, &submap_id_A);
+    bool success_B = submap_collection_ptr_->lookupActiveSubmapByTime(
+        loop_closure_msg.to_timestamp, &submap_id_B);
+    if (!success_A || !success_B) {
+      ROS_WARN_STREAM(warning_msg_prefix.str() << ": timestamp A or B has no "
+                                                  "corresponding submap");
+      return;
+    }
+    if (submap_id_A == submap_id_B) {
+      ROS_WARN_STREAM(warning_msg_prefix.str() << ": timestamp A and B fall "
+                                                  "within the same submap");
+      return;
+    }
+    const VoxgraphSubmap& submap_A =
+        submap_collection_ptr_->getSubmap(submap_id_A);
+    const VoxgraphSubmap& submap_B =
+        submap_collection_ptr_->getSubmap(submap_id_B);
 
-  // Find the robot pose at both timestamp in their active submap frame
-  Transformation T_A_t1, T_B_t2;
-  if (!submap_A.lookupPoseByTime(timestamp_A, &T_A_t1) ||
-      !submap_B.lookupPoseByTime(timestamp_B, &T_B_t2)) {
-    ROS_WARN_STREAM(warning_msg_prefix.str() << ": timestamp A or B has no "
-                                                "corresponding robot pose");
-    return;
-  }
+    // Find the robot pose at both timestamp in their active submap frame
+    Transformation T_A_t1, T_B_t2;
+    if (!submap_A.lookupPoseByTime(timestamp_A, &T_A_t1) ||
+        !submap_B.lookupPoseByTime(timestamp_B, &T_B_t2)) {
+      ROS_WARN_STREAM(warning_msg_prefix.str() << ": timestamp A or B has no "
+                                                  "corresponding robot pose");
+      return;
+    }
 
-  // Convert the transform between two timestamps into a transform between
-  // two submap origins
-  // NOTE: The usual conversion method, tf::transformMsgToKindr(), is not used
-  //       since it has a hard CHECK on invalid rotations which cannot be caught
-  Eigen::Vector3d translation;
-  tf::vectorMsgToEigen(loop_closure_msg.transform.translation, translation);
-  Eigen::Quaterniond rotation;
-  tf::quaternionMsgToEigen(loop_closure_msg.transform.rotation, rotation);
-  if (std::abs(rotation.squaredNorm() - 1.0) > 1e-3) {
-    ROS_WARN_STREAM(warning_msg_prefix.str() << ": supplied transform "
-                                                "quaternion is invalid");
-    return;
-  }
-  Transformation T_t1_t2(translation.cast<voxblox::FloatingPoint>(),
-                         rotation.cast<voxblox::FloatingPoint>());
-  Transformation T_AB = T_A_t1 * T_t1_t2 * T_B_t2.inverse();
-  pose_graph_interface_.addLoopClosureMeasurement(submap_id_A, submap_id_B,
-                                                  T_AB);
+    // Convert the transform between two timestamps into a transform between
+    // two submap origins
+    // NOTE: The usual conversion method, tf::transformMsgToKindr(), is not used
+    //       since it has a hard CHECK on invalid rotations which cannot be
+    //       caught
+    Eigen::Vector3d translation;
+    tf::vectorMsgToEigen(loop_closure_msg.transform.translation, translation);
+    Eigen::Quaterniond rotation;
+    tf::quaternionMsgToEigen(loop_closure_msg.transform.rotation, rotation);
+    if (std::abs(rotation.squaredNorm() - 1.0) > 1e-3) {
+      ROS_WARN_STREAM(warning_msg_prefix.str() << ": supplied transform "
+                                                  "quaternion is invalid");
+      return;
+    }
+    Transformation T_t1_t2(translation.cast<voxblox::FloatingPoint>(),
+                           rotation.cast<voxblox::FloatingPoint>());
+    Transformation T_AB = T_A_t1 * T_t1_t2 * T_B_t2.inverse();
+    pose_graph_interface_.addLoopClosureMeasurement(submap_id_A, submap_id_B,
+                                                    T_AB);
 
-  // Visualize the loop closure link
-  const Transformation& T_O_A = submap_A.getPose();
-  const Transformation& T_O_B = submap_B.getPose();
-  const Transformation T_O_t1 = T_O_A * T_A_t1;
-  const Transformation T_O_t2 = T_O_B * T_B_t2;
-  loop_closure_vis_.publishLoopClosure(T_O_t1, T_O_t2, T_t1_t2,
-                                       frame_names_.output_odom_frame,
-                                       loop_closure_links_pub_);
-  loop_closure_vis_.publishAxes(T_O_t1, T_O_t2, T_t1_t2,
-                                frame_names_.output_odom_frame,
-                                loop_closure_axes_pub_);
+    // Visualize the loop closure link
+    const Transformation& T_O_A = submap_A.getPose();
+    const Transformation& T_O_B = submap_B.getPose();
+    const Transformation T_O_t1 = T_O_A * T_A_t1;
+    const Transformation T_O_t2 = T_O_B * T_B_t2;
+    loop_closure_vis_.publishLoopClosure(T_O_t1, T_O_t2, T_t1_t2,
+                                         frame_names_.output_odom_frame,
+                                         loop_closure_links_pub_);
+    loop_closure_vis_.publishAxes(T_O_t1, T_O_t2, T_t1_t2,
+                                  frame_names_.output_odom_frame,
+                                  loop_closure_axes_pub_);
+  }
 }
 
 bool VoxgraphMapper::submapCallback(

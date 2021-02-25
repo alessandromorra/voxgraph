@@ -141,7 +141,9 @@ class VoxgraphMapper {
   // Constraints to be used
   bool registration_constraints_enabled_;
   bool odometry_constraints_enabled_;
+  bool loop_closure_constraints_enabled_;
   bool height_constraints_enabled_;
+
   bool pause_optimization_;
 
   // Instantiate the submap collection
