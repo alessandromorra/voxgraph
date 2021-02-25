@@ -6,8 +6,9 @@
   <arg name="voxblox_config" default="voxblox_temporal_window_ascento.yaml" />
   <arg name="voxgraph_config" default="voxgraph_mapper_ascento.yaml" />
   <arg name="use_bag" default="true" />
-  <arg name="rosbag_path" default="/home/alessandromorra/logging/arc_handheld_2021_02_10_19_30_55/arc_handheld.bag" />
-  <arg name="use_ascento" default="false" />
+  <!-- <arg name="rosbag_path" default="/home/alessandromorra/logging/arc_handheld_2021_02_10_19_30_55/arc_handheld.bag" /> -->
+  <arg name="rosbag_path" default="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/ascento_navigation_2021_01_21_19_12_29/ascento_navigation.bag" />
+  <arg name="use_ascento" default="true" />
   <!-- use_ascento: true => spawn a bag with the ascento robot modle -->
   <!-- use_ascento: false => spawn a bag with the handheld device -->
 
@@ -22,19 +23,25 @@
       command="$(find xacro)/xacro
       '$(find ascento_description)/urdf/ascento.xacro'
       simulate:=false"/>
+      <node
+        name="rviz_node"
+        pkg="rviz"
+        type="rviz"
+        args="-d /etc/arc/parameters/visualization/rviz/handheld_settings.rviz"
+        required="true"/>
   </group>
 
   <group unless="$(arg use_ascento)">
     <include file="/etc/arc/parameters/handheld/handheld_tf.launch">
     </include>
+    <node
+      name="rviz_node"
+      pkg="rviz"
+      type="rviz"
+      args="-d /etc/arc/parameters/visualization/rviz/vision_visualization_settings.rviz"
+      required="true"/>
   </group>
 
-  <node
-    name="rviz_node"
-    pkg="rviz"
-    type="rviz"
-    args="-d /etc/arc/parameters/visualization/rviz/handheld_settings.rviz"
-    required="true"/>
 
   <include unless="$(arg use_bag)" file="/etc/arc/parameters/handheld/handheld_sensors.launch">
     <!-- <arg name="use_odometry_integrator" value="true"/> -->
