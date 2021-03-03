@@ -4,9 +4,9 @@ world_frame: "ascento/handheld_odom_frame"
 color_mode: "normals"
 
 method: "projective"
-sensor_horizontal_resolution: 680
+sensor_horizontal_resolution: 640
 sensor_vertical_resolution: 480
-sensor_horizontal_field_of_view_degrees: 90 #
+sensor_horizontal_field_of_view_degrees: 87 #
 sensor_vertical_field_of_view_degrees: 57 # 58
 integrator_threads: 8
 
