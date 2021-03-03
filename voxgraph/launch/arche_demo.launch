@@ -1,7 +1,7 @@
 <launch>
   <param name="use_sim_time" value="true" />
 
-  <arg name="rosbag_path" default="/home/alessandromorra/Downloads/arche_flight1_2ms_indoor-outdoor-figure-8.bag" />
+  <arg name="rosbag_path" default="/home/alessandromorra/Documents/arche_flight1_2ms_indoor-outdoor-figure-8.bag" />
 
   <arg name="pointcloud_topic" default="lidar_undistortion/pointcloud_corrected" />
   <arg name="rosbag_skip_first_n_sec" default="5" />

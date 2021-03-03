@@ -1,5 +1,5 @@
 <launch>
-  <arg name="pointcloud_topic" default="ascento/realsense_d435i_front/depth/color/points" />
+  <arg name="pointcloud_topic" default="ascento/realsense_d435i_front/depth/color/points_processed" />
   <!-- <arg name="rosbag_skip_first_n_sec" default="5" /> -->
   <arg name="debug_mode" default="false" />
   <arg name="show_rviz" default="true" />
@@ -17,6 +17,11 @@
   <param unless="$(arg use_bag)" name="use_sim_time" value="false" />
 
   <include file="$(find voxgraph)/launch/voxgraph_mapper.launch" pass_all_args="true" />
+
+  <include file="$(find arc_mapping)/launch/downsample_pointcloud.launch" />
+
+  <include file="/etc/arc/parameters/global_mapping/voxgraph_tf.launch"/>
+
 
   <group if="$(arg use_ascento)">
     <param
