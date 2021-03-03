@@ -6,7 +6,8 @@
   <arg name="voxblox_config" default="voxblox_temporal_window_ascento.yaml" />
   <arg name="voxgraph_config" default="voxgraph_mapper_ascento.yaml" />
   <arg name="use_bag" default="true" />
-  <arg name="rosbag_path" default="/home/alessandromorra/logging/arc_handheld_2021_02_10_19_30_55/arc_handheld.bag" />
+  <!-- <arg name="rosbag_path" default="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/arc_handheld_2021_03_03_21_19_19/arc_handheld.bag" /> -->
+  <arg name="rosbag_path" default="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/arc_handheld_2021_02_10_19_30_55/arc_handheld.bag" />
   <!-- <arg name="rosbag_path" default="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/ascento_navigation_2021_01_21_19_12_29/ascento_navigation.bag" /> -->
   <!-- <arg name="rosbag_path" default="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/ascento_navigation_2021_01_21_20_18_39/ascento_navigation.bag" /> -->
   <arg name="use_ascento" default="false" />
@@ -40,12 +41,12 @@
   <group unless="$(arg use_ascento)">
     <include file="/etc/arc/parameters/handheld/handheld_tf.launch">
     </include>
-    <node
+    <!-- <node
       name="rviz_node"
       pkg="rviz"
       type="rviz"
       args="-d /etc/arc/parameters/visualization/rviz/handheld_settings.rviz"
-      required="true"/>
+      required="true"/> -->
   </group>
 
 
