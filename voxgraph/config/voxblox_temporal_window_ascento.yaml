@@ -25,7 +25,7 @@ slice_level: 1.0
 publish_slices: true
 update_mesh_every_n_sec: 2.0
 
-pointcloud_deintegration_queue_length: 60 # This represents how long the sliding window is, this divided by the frequency of the sensor gives the time window.
+pointcloud_deintegration_queue_length: 50 # This represents how long the sliding window is, this divided by the frequency of the sensor gives the time window.
 
 publish_tsdf_map: true
 publish_map_every_n_sec: 4.0 # This parameter defines how long it takes till a new submap is created.
