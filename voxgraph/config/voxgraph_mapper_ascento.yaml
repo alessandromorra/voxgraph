@@ -21,11 +21,11 @@ output_sensor_frame: "sensor_voxgraph"
 # - [ 0.0,        0.0,       0.0,        1.0]
 
 
-tsdf_voxel_size: 0.10
+tsdf_voxel_size: 0.05
 tsdf_integrator:
   truncation_distance: 0.60
-  max_ray_length_m: 3.0
-  min_ray_length_m: 0.5
+  max_ray_length_m: 3.5
+  min_ray_length_m: 0.3
   use_const_weight: true
   use_weight_dropoff: true
   use_sparsity_compensation_factor: true

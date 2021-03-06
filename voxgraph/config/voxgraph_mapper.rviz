@@ -32,7 +32,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: Front_Point_Cloud
+    SyncSource: Bottom_Point_Cloud
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -102,7 +102,7 @@ Visualization Manager:
           Marker Topic: /voxgraph_mapper/pose_graph
           Name: Pose graph
           Namespaces:
-            optimized: true
+            {}
           Queue Size: 100
           Value: true
         - Class: rviz/Group
@@ -120,9 +120,7 @@ Visualization Manager:
               Topic: /voxgraph_mapper/separated_mesh
               Unreliable: false
               Value: true
-              Visible:
-                Value: true
-                submap_1: true
+              Visible: true
           Enabled: true
           Name: Meshes
       Enabled: true
@@ -193,7 +191,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.009999999776482582
       Style: Flat Squares
-      Topic: /voxblox/reprojected_pointcloud
+      Topic: /ascento/realsense_d435i_front/depth/color/points_processed
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -307,10 +305,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.10000000149011612
-      Pitch: 1.0997965335845947
+      Pitch: 0.274796724319458
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 5.140851974487305
+      Yaw: 3.115844964981079
     Saved: ~
 Window Geometry:
   Displays:

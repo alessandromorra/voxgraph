@@ -6,20 +6,42 @@
   <arg name="voxblox_config" default="voxblox_temporal_window_ascento.yaml" />
   <arg name="voxgraph_config" default="voxgraph_mapper_ascento.yaml" />
   <arg name="use_bag" default="true" />
-  <!-- <arg name="rosbag_path" default="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/arc_handheld_2021_03_03_21_19_19/arc_handheld.bag" /> -->
-  <arg name="rosbag_path" default="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/arc_handheld_2021_02_10_19_30_55/arc_handheld.bag" />
-  <!-- <arg name="rosbag_path" default="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/ascento_navigation_2021_01_21_19_12_29/ascento_navigation.bag" /> -->
-  <!-- <arg name="rosbag_path" default="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/ascento_navigation_2021_01_21_20_18_39/ascento_navigation.bag" /> -->
-  <arg name="use_ascento" default="false" />
+  <arg name="use_ascento" value="false" />
   <!-- use_ascento: true => spawn a bag with the ascento robot modle -->
   <!-- use_ascento: false => spawn a bag with the handheld device -->
+
+  <!-- not working well-->
+  <arg name="use_l515" default="false" />
+  <arg if="$(arg use_l515)" name="rosbag_path" value="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/arc_handheld_2021_03_04_l515/arc_handheld.bag" />
+  <include if="$(arg use_l515)" file="$(find point_cloud_tools_ros)/launch/point_cloud_tools_ros.launch">
+    <arg name="parameter_path_ros_node" value="/etc/arc/parameters/global_mapping/point_cloud_filtering_l515.yaml"/>
+  </include>
+
+  <arg name="use_d455" default="false" />
+  <arg if="$(arg use_d455)" name="rosbag_path" value="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/arc_handheld_2021_03_04_d455/arc_handheld.bag" />
+  <include if="$(arg use_d455)" file="$(find point_cloud_tools_ros)/launch/point_cloud_tools_ros.launch">
+    <arg name="parameter_path_ros_node" value="/etc/arc/parameters/global_mapping/point_cloud_filtering_l515.yaml"/>
+  </include>
+
+
+  <arg name="use_d435i" default="true" />
+  <arg if="$(arg use_d435i)" name="rosbag_path" value="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/arc_handheld_2021_03_04_d435i/arc_handheld.bag" />
+  <include if="$(arg use_d435i)" file="$(find point_cloud_tools_ros)/launch/point_cloud_tools_ros.launch">
+    <arg name="parameter_path_ros_node" value="/etc/arc/parameters/global_mapping/point_cloud_filtering_d435i.yaml"/>
+  </include>
+
+  <!-- <arg name="rosbag_path" default="/home/alessandromorra/logging/arc_handheld_2021_03_04_10_04_20/arc_handheld.bag" /> -->
+  <!-- <arg name="rosbag_path" default="/home/alessandromorra/logging/arc_handheld_2021_03_04_09_52_23/arc_handheld.bag" /> -->
+
+  <!-- <arg name="rosbag_path" default="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/arc_handheld_2021_03_03_21_19_19/arc_handheld.bag" /> -->
+  <!-- <arg name="rosbag_path" default="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/arc_handheld_2021_02_10_19_30_55/arc_handheld.bag" /> -->
+  <!-- <arg name="rosbag_path" default="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/ascento_navigation_2021_01_21_19_12_29/ascento_navigation.bag" /> -->
+  <!-- <arg name="rosbag_path" default="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/ascento_navigation_2021_01_21_20_18_39/ascento_navigation.bag" /> -->
 
   <param if="$(arg use_bag)" name="use_sim_time" value="true" />
   <param unless="$(arg use_bag)" name="use_sim_time" value="false" />
 
   <include file="$(find voxgraph)/launch/voxgraph_mapper.launch" pass_all_args="true" />
-
-  <include file="$(find arc_mapping)/launch/downsample_pointcloud.launch" />
 
   <include file="/etc/arc/parameters/global_mapping/voxgraph_tf.launch"/>
 
