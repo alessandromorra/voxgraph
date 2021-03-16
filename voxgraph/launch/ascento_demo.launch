@@ -1,5 +1,11 @@
 <launch>
+  <!-- <arg name="pointcloud_topic" default="ascento/realsense_d435i/depth/color/points_processed" /> -->
   <arg name="pointcloud_topic" default="ascento/realsense_d435i_front/depth/color/points_processed" />
+  <!-- <arg name="pointcloud_topic" default="ascento/realsense_d435i_bottom/depth/color/points_processed" /> -->
+  <arg name="use_multiple_input" default="true" />
+
+
+
   <!-- <arg name="rosbag_skip_first_n_sec" default="5" /> -->
   <arg name="debug_mode" default="false" />
   <arg name="show_rviz" default="true" />
@@ -17,18 +23,28 @@
     <arg name="parameter_path_ros_node" value="/etc/arc/parameters/global_mapping/point_cloud_filtering_l515.yaml"/>
   </include>
 
-  <arg name="use_d455" default="false" />
+  <arg name="use_d455" default="true" />
+  <!-- <arg if="$(arg use_d455)" name="rosbag_path" value="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/arc_handheld_2021_03_04_d455/arc_handheld.bag" /> -->
   <arg if="$(arg use_d455)" name="rosbag_path" value="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/arc_handheld_2021_03_04_d455/arc_handheld.bag" />
   <include if="$(arg use_d455)" file="$(find point_cloud_tools_ros)/launch/point_cloud_tools_ros.launch">
-    <arg name="parameter_path_ros_node" value="/etc/arc/parameters/global_mapping/point_cloud_filtering_l515.yaml"/>
+    <arg name="parameter_path_ros_node" value="/etc/arc/parameters/global_mapping/point_cloud_filtering_d455.yaml"/>
   </include>
 
 
-  <arg name="use_d435i" default="true" />
-  <arg if="$(arg use_d435i)" name="rosbag_path" value="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/arc_handheld_2021_03_04_d435i/arc_handheld.bag" />
-  <include if="$(arg use_d435i)" file="$(find point_cloud_tools_ros)/launch/point_cloud_tools_ros.launch">
+  <arg name="use_d435i" default="false" />
+  <!-- <arg if="$(arg use_d435i)" name="rosbag_path" value="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/arc_handheld_2021_03_04_d435i/arc_handheld.bag" /> -->
+  <!-- <arg if="$(arg use_d435i)" name="rosbag_path" value="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/ascento_navigation_2021_01_21_19_12_29/ascento_navigation.bag" /> -->
+  <!-- <arg if="$(arg use_d435i)" name="rosbag_path" value="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/ascento_navigation_2021_01_21_20_18_39/ascento_navigation.bag" /> -->
+  <arg if="$(arg use_d435i)" name="rosbag_path" value="/home/alessandromorra/Dropbox/Ascento_Autonomy_Data/arc_handheld_2021_03_10_435i_organized/arc_handheld.bag" />
+  <!-- <include if="$(arg use_d435i)" file="$(find point_cloud_tools_ros)/launch/point_cloud_tools_ros.launch"> -->
+    <!-- <arg name="parameter_path_ros_node" value="/etc/arc/parameters/global_mapping/point_cloud_filtering_d435i.yaml"/> -->
+  <!-- </include> -->
+  <include file="$(find point_cloud_tools_ros)/launch/point_cloud_tools_ros.launch">
+    <arg name="node_name" value="bottom_point_cloud_filter"/>
     <arg name="parameter_path_ros_node" value="/etc/arc/parameters/global_mapping/point_cloud_filtering_d435i.yaml"/>
   </include>
+
+
 
   <!-- <arg name="rosbag_path" default="/home/alessandromorra/logging/arc_handheld_2021_03_04_10_04_20/arc_handheld.bag" /> -->
   <!-- <arg name="rosbag_path" default="/home/alessandromorra/logging/arc_handheld_2021_03_04_09_52_23/arc_handheld.bag" /> -->
@@ -44,6 +60,8 @@
   <include file="$(find voxgraph)/launch/voxgraph_mapper.launch" pass_all_args="true" />
 
   <include file="/etc/arc/parameters/global_mapping/voxgraph_tf.launch"/>
+
+  <include if="$(arg use_multiple_input)" file="$(find ros_topic_remapper)/launch/point_cloud_aggregator.launch"/>
 
 
   <group if="$(arg use_ascento)">
@@ -76,9 +94,8 @@
     <!-- <arg name="use_odometry_integrator" value="true"/> -->
   </include>
 
-  <include file="$(find arc_mapping)/launch/tracking_observer_node.launch">
+  <!-- <include file="$(find arc_mapping)/launch/tracking_observer_node.launch"/> -->
     <!-- <arg name="use_odometry_integrator" value="true"/> -->
-  </include>
 
 
   <!--  Add transform such that a handheld tf is complete too.-->

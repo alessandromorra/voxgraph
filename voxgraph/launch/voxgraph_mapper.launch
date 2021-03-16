@@ -24,6 +24,8 @@
         name="player" pkg="rosbag" type="play" output="screen"
         args="-r 1.0 -s $(arg rosbag_skip_first_n_sec) -q --clock $(arg rosbag_path)" />
 
+
+
   <!-- Run voxblox in sliding window mode -->
   <group>
     <node name="voxblox" pkg="voxblox_ros" type="tsdf_server"

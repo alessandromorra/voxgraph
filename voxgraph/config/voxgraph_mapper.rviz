@@ -11,10 +11,9 @@ Panels:
         - /Voxgraph1
         - /Voxgraph1/Meshes1
         - /Voxblox1/Mesh1
-        - /Odometry1/Shape1
-        - /reprojected1
-      Splitter Ratio: 0.7325349450111389
-    Tree Height: 1543
+        - /Front_Point_Cloud1
+      Splitter Ratio: 0.4978494644165039
+    Tree Height: 1140
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -33,7 +32,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: reprojected
+    SyncSource: Image
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -60,123 +59,19 @@ Visualization Manager:
       Reference Frame: <Fixed Frame>
       Value: true
     - Class: rviz/TF
-      Enabled: true
+      Enabled: false
       Frame Timeout: 15
       Frames:
         All Enabled: false
-        ascento/global_map_frame:
-          Value: true
-        ascento/handheld_odom_frame:
-          Value: true
-        ascento/realsense_d435i_front_accel_frame:
-          Value: true
-        ascento/realsense_d435i_front_accel_optical_frame:
-          Value: true
-        ascento/realsense_d435i_front_color_frame:
-          Value: true
-        ascento/realsense_d435i_front_color_optical_frame:
-          Value: true
-        ascento/realsense_d435i_front_depth_frame:
-          Value: true
-        ascento/realsense_d435i_front_depth_optical_frame:
-          Value: true
-        ascento/realsense_d435i_front_gyro_frame:
-          Value: true
-        ascento/realsense_d435i_front_imu_optical_frame:
-          Value: true
-        ascento/realsense_d435i_front_infra1_frame:
-          Value: true
-        ascento/realsense_d435i_front_infra1_optical_frame:
-          Value: true
-        ascento/realsense_d435i_front_infra2_frame:
-          Value: true
-        ascento/realsense_d435i_front_infra2_optical_frame:
-          Value: true
-        ascento/realsense_d435i_front_link:
-          Value: true
-        ascento/realsense_t265_link:
-          Value: true
-        ascento/slam_sensor_frame:
-          Value: true
-        ascento/voxgraph:
-          Value: true
-        ascento/world:
-          Value: true
-        initial_pose:
-          Value: true
-        odom:
-          Value: false
-        submap_0:
-          Value: true
-        submap_1:
-          Value: true
-        submap_2:
-          Value: true
-        submap_3:
-          Value: true
-        submap_4:
-          Value: true
-        submap_5:
-          Value: true
-        submap_6:
-          Value: true
-        submap_7:
-          Value: true
-        world:
-          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: true
       Tree:
-        odom:
-          world:
-            ascento/world:
-              ascento/global_map_frame:
-                ascento/slam_sensor_frame:
-                  ascento/handheld_odom_frame:
-                    initial_pose:
-                      {}
-                    submap_0:
-                      {}
-                    submap_1:
-                      {}
-                    submap_2:
-                      {}
-                    submap_3:
-                      {}
-                    submap_4:
-                      {}
-                    submap_5:
-                      {}
-                    submap_6:
-                      {}
-                    submap_7:
-                      {}
-                  ascento/realsense_t265_link:
-                    ascento/realsense_d435i_front_link:
-                      ascento/realsense_d435i_front_accel_frame:
-                        ascento/realsense_d435i_front_accel_optical_frame:
-                          {}
-                      ascento/realsense_d435i_front_color_frame:
-                        ascento/realsense_d435i_front_color_optical_frame:
-                          {}
-                      ascento/realsense_d435i_front_depth_frame:
-                        ascento/realsense_d435i_front_depth_optical_frame:
-                          ascento/voxgraph:
-                            {}
-                      ascento/realsense_d435i_front_gyro_frame:
-                        ascento/realsense_d435i_front_imu_optical_frame:
-                          {}
-                      ascento/realsense_d435i_front_infra1_frame:
-                        ascento/realsense_d435i_front_infra1_optical_frame:
-                          {}
-                      ascento/realsense_d435i_front_infra2_frame:
-                        ascento/realsense_d435i_front_infra2_optical_frame:
-                          {}
+        {}
       Update Interval: 0
-      Value: true
+      Value: false
     - Class: rviz/Group
       Displays:
         - Alpha: 1
@@ -225,9 +120,7 @@ Visualization Manager:
               Topic: /voxgraph_mapper/separated_mesh
               Unreliable: false
               Value: false
-              Visible:
-                Value: true
-                submap_1: true
+              Visible: true
           Enabled: true
           Name: Meshes
       Enabled: true
@@ -241,134 +134,244 @@ Visualization Manager:
           Unreliable: false
           Value: true
           Visible: true
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /range_image
+          Name: debug
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Class: rviz/MarkerArray
+          Enabled: false
+          Marker Topic: /voxblox/occupied_nodes
+          Name: MarkerArray
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: false
       Enabled: false
       Name: Voxblox
-    - Alpha: 1
-      Autocompute Intensity Bounds: true
-      Autocompute Value Bounds:
-        Max Value: 10
-        Min Value: -10
-        Value: true
-      Axis: Z
-      Channel Name: intensity
-      Class: rviz/PointCloud2
-      Color: 255; 255; 255
-      Color Transformer: Intensity
-      Decay Time: 0
-      Enabled: false
-      Invert Rainbow: false
-      Max Color: 255; 255; 255
-      Max Intensity: 1292
-      Min Color: 0; 0; 0
-      Min Intensity: 0
+    - Class: rviz/Group
+      Displays:
+        - Class: rviz/Image
+          Enabled: true
+          Image Topic: /ascento/realsense_t265/fisheye1/image_raw
+          Max Value: 1
+          Median window: 5
+          Min Value: 0
+          Name: Image
+          Normalize Range: true
+          Queue Size: 2
+          Transport Hint: raw
+          Unreliable: false
+          Value: true
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /ascento/realsense_t265/odom/global_path_line
+          Name: PathSlamSensorGlobal
+          Namespaces:
+            tracking_observer_ros: true
+          Queue Size: 100
+          Value: true
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /ascento/realsense_t265/odom/local_path_line
+          Name: PathSlamSensorLocal
+          Namespaces:
+            tracking_observer_ros: true
+          Queue Size: 100
+          Value: true
+      Enabled: true
+      Name: T265
+    - Class: rviz/Group
+      Displays:
+        - Alpha: 1
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: -0.039298467338085175
+            Min Value: -2.0657947063446045
+            Value: true
+          Axis: Z
+          Channel Name: intensity
+          Class: rviz/PointCloud2
+          Color: 255; 255; 255
+          Color Transformer: AxisColor
+          Decay Time: 0
+          Enabled: true
+          Invert Rainbow: false
+          Max Color: 255; 255; 255
+          Max Intensity: 0
+          Min Color: 0; 0; 0
+          Min Intensity: 0
+          Name: Raw
+          Position Transformer: XYZ
+          Queue Size: 10
+          Selectable: false
+          Size (Pixels): 3
+          Size (m): 0.009999999776482582
+          Style: Flat Squares
+          Topic: /ascento/realsense_d435i_front/depth/color/points
+          Unreliable: false
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: true
+        - Alpha: 1
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 0.950222373008728
+            Min Value: -2.0438358783721924
+            Value: true
+          Axis: Z
+          Channel Name: intensity
+          Class: rviz/PointCloud2
+          Color: 255; 255; 255
+          Color Transformer: FlatColor
+          Decay Time: 0
+          Enabled: false
+          Invert Rainbow: false
+          Max Color: 255; 255; 255
+          Max Intensity: 4096
+          Min Color: 0; 0; 0
+          Min Intensity: 0
+          Name: Processed
+          Position Transformer: XYZ
+          Queue Size: 10
+          Selectable: true
+          Size (Pixels): 3
+          Size (m): 0.009999999776482582
+          Style: Flat Squares
+          Topic: /ascento/realsense_d435i_front/depth/color/points_processed
+          Unreliable: false
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: false
+        - Alpha: 1
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 10
+            Min Value: -10
+            Value: true
+          Axis: Z
+          Channel Name: intensity
+          Class: rviz/PointCloud2
+          Color: 255; 255; 255
+          Color Transformer: Intensity
+          Decay Time: 0
+          Enabled: false
+          Invert Rainbow: false
+          Max Color: 255; 255; 255
+          Max Intensity: 4096
+          Min Color: 0; 0; 0
+          Min Intensity: 0
+          Name: Reprojected
+          Position Transformer: XYZ
+          Queue Size: 10
+          Selectable: true
+          Size (Pixels): 3
+          Size (m): 0.009999999776482582
+          Style: Flat Squares
+          Topic: /voxblox/reprojected_pointcloud
+          Unreliable: false
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: false
+      Enabled: true
       Name: Front_Point_Cloud
-      Position Transformer: XYZ
-      Queue Size: 10
-      Selectable: true
-      Size (Pixels): 3
-      Size (m): 0.009999999776482582
-      Style: Flat Squares
-      Topic: /ascento/realsense_d435i_front/depth/color/points_processed
-      Unreliable: false
-      Use Fixed Frame: true
-      Use rainbow: true
-      Value: false
-    - Alpha: 1
-      Autocompute Intensity Bounds: true
-      Autocompute Value Bounds:
-        Max Value: 10
-        Min Value: -10
-        Value: true
-      Axis: Z
-      Channel Name: intensity
-      Class: rviz/PointCloud2
-      Color: 255; 255; 255
-      Color Transformer: Intensity
-      Decay Time: 0
-      Enabled: false
-      Invert Rainbow: false
-      Max Color: 255; 255; 255
-      Max Intensity: 4096
-      Min Color: 0; 0; 0
-      Min Intensity: 0
+    - Class: rviz/Group
+      Displays:
+        - Alpha: 1
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 0.3479686379432678
+            Min Value: 0.02369534969329834
+            Value: true
+          Axis: Z
+          Channel Name: intensity
+          Class: rviz/PointCloud2
+          Color: 255; 255; 255
+          Color Transformer: AxisColor
+          Decay Time: 0
+          Enabled: false
+          Invert Rainbow: false
+          Max Color: 255; 255; 255
+          Max Intensity: 0
+          Min Color: 0; 0; 0
+          Min Intensity: 0
+          Name: Raw
+          Position Transformer: XYZ
+          Queue Size: 10
+          Selectable: false
+          Size (Pixels): 3
+          Size (m): 0.009999999776482582
+          Style: Flat Squares
+          Topic: /ascento/realsense_d435i_bottom/depth/color/points
+          Unreliable: false
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: false
+        - Alpha: 1
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 0.950222373008728
+            Min Value: -2.0438358783721924
+            Value: true
+          Axis: Z
+          Channel Name: intensity
+          Class: rviz/PointCloud2
+          Color: 255; 255; 255
+          Color Transformer: FlatColor
+          Decay Time: 0
+          Enabled: false
+          Invert Rainbow: false
+          Max Color: 255; 255; 255
+          Max Intensity: 4096
+          Min Color: 0; 0; 0
+          Min Intensity: 0
+          Name: Processed
+          Position Transformer: XYZ
+          Queue Size: 10
+          Selectable: true
+          Size (Pixels): 3
+          Size (m): 0.009999999776482582
+          Style: Flat Squares
+          Topic: /ascento/realsense_d435i_bottom/depth/color/points_processed
+          Unreliable: false
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: false
+        - Alpha: 1
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 10
+            Min Value: -10
+            Value: true
+          Axis: Z
+          Channel Name: intensity
+          Class: rviz/PointCloud2
+          Color: 255; 255; 255
+          Color Transformer: Intensity
+          Decay Time: 0
+          Enabled: false
+          Invert Rainbow: false
+          Max Color: 255; 255; 255
+          Max Intensity: 4096
+          Min Color: 0; 0; 0
+          Min Intensity: 0
+          Name: Reprojected
+          Position Transformer: XYZ
+          Queue Size: 10
+          Selectable: true
+          Size (Pixels): 3
+          Size (m): 0.009999999776482582
+          Style: Flat Squares
+          Topic: /voxblox/reprojected_pointcloud
+          Unreliable: false
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: false
+      Enabled: true
       Name: Bottom_Point_Cloud
-      Position Transformer: XYZ
-      Queue Size: 10
-      Selectable: true
-      Size (Pixels): 3
-      Size (m): 0.009999999776482582
-      Style: Flat Squares
-      Topic: /ascento/realsense_d435i_front/depth/color/points_processed
-      Unreliable: false
-      Use Fixed Frame: true
-      Use rainbow: true
-      Value: false
-    - Angle Tolerance: 0.10000000149011612
-      Class: rviz/Odometry
-      Covariance:
-        Orientation:
-          Alpha: 0.5
-          Color: 255; 255; 127
-          Color Style: Unique
-          Frame: Local
-          Offset: 1
-          Scale: 1
-          Value: true
-        Position:
-          Alpha: 0.30000001192092896
-          Color: 204; 51; 204
-          Scale: 1
-          Value: true
-        Value: false
-      Enabled: false
-      Keep: 1000
-      Name: Odometry
-      Position Tolerance: 0.10000000149011612
-      Shape:
-        Alpha: 0.30000001192092896
-        Axes Length: 1
-        Axes Radius: 0.10000000149011612
-        Color: 255; 25; 0
-        Head Length: 0.30000001192092896
-        Head Radius: 0.10000000149011612
-        Shaft Length: 1
-        Shaft Radius: 0.05000000074505806
-        Value: Arrow
-      Topic: /ascento/realsense_t265/odom/local
-      Unreliable: false
-      Value: false
-    - Class: rviz/Marker
-      Enabled: false
-      Marker Topic: /ascento/realsense_t265/odom/global_path_line
-      Name: PathSlamSensorGlobal
-      Namespaces:
-        {}
-      Queue Size: 100
-      Value: false
-    - Class: rviz/Marker
-      Enabled: false
-      Marker Topic: /ascento/realsense_t265/odom/local_path_line
-      Name: PathSlamSensorLocal
-      Namespaces:
-        {}
-      Queue Size: 100
-      Value: false
-    - Class: rviz/MarkerArray
-      Enabled: false
-      Marker Topic: /voxblox/occupied_nodes
-      Name: MarkerArray
-      Namespaces:
-        {}
-      Queue Size: 100
-      Value: false
-    - Class: rviz/Marker
-      Enabled: false
-      Marker Topic: /range_image
-      Name: Marker
-      Namespaces:
-        {}
-      Queue Size: 100
-      Value: false
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -387,7 +390,7 @@ Visualization Manager:
       Max Intensity: 4096
       Min Color: 0; 0; 0
       Min Intensity: 0
-      Name: reprojected
+      Name: Reprojected
       Position Transformer: XYZ
       Queue Size: 10
       Selectable: true
@@ -426,26 +429,26 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Class: rviz/Orbit
-      Distance: 0.5818603038787842
+      Class: rviz/ThirdPersonFollower
+      Distance: 14.421091079711914
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -4.841104984283447
-        Y: -4.0904974937438965
-        Z: 13.706533432006836
-      Focal Shape Fixed Size: false
+        X: 1.5908010005950928
+        Y: 0.0030595064163208008
+        Z: -9.82979418040486e-6
+      Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
-      Near Clip Distance: 0.10000000149011612
-      Pitch: 1.3697960376739502
+      Near Clip Distance: 0.009999999776482582
+      Pitch: 0.6597974896430969
       Target Frame: <Fixed Frame>
-      Value: Orbit (rviz)
-      Yaw: 3.112661361694336
+      Value: ThirdPersonFollower (rviz)
+      Yaw: 0.0231108870357275
     Saved: ~
 Window Geometry:
   Displays:
@@ -453,7 +456,9 @@ Window Geometry:
   Height: 2049
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd0000000400000000000001f7000006fffc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b000000b000fffffffb0000001e0054006f006f006c002000500072006f00700065007200740069006500730200000f00000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000006e000006ff0000018200fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000015f000006fffc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000006e000006ff0000013200fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e1000001970000000300000e7a0000005afc0100000002fb0000000800540069006d0065010000000000000e7a0000057100fffffffb0000000800540069006d0065010000000000000450000000000000000000000b0c000006ff00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Image:
+    collapsed: false
+  QMainWindow State: 000000ff00000000fd0000000400000000000003a4000006fffc0200000009fb0000001200530065006c0065006300740069006f006e00000001e10000009b000000b000fffffffb0000001e0054006f006f006c002000500072006f00700065007200740069006500730200000f00000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000006e0000056c0000018200fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000a0049006d00610067006501000005e6000001870000002600ffffff000000010000015f000006fffc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000006e000006ff0000013200fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e1000001970000000300000e7a0000005afc0100000002fb0000000800540069006d0065010000000000000e7a0000057100fffffffb0000000800540069006d006501000000000000045000000000000000000000095f000006ff00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
